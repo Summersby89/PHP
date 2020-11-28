@@ -1,0 +1,9 @@
+<application>
+  <component name="ParameterNameHintsSettings">
+    <blacklists>
+      <blacklist language="PHP">
+        <added pattern="\shuffle(array)" />
+      </blacklist>
+    </blacklists>
+  </component>
+</application>
