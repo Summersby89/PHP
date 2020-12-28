@@ -1,12 +1,12 @@
 <?php
 
 include $_SERVER['DOCUMENT_ROOT'] . '/include/functions.php';
-$path = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
+include $_SERVER['DOCUMENT_ROOT'] . '/include/config.php';
 
 if (isset($_FILES['images'])) {
     // проверим количество файлов
     $filecount = $_FILES['images']['name'];
-    if (count($filecount) > 5) {
+    if (count($filecount) > $maxUploadFiles) {
         die('Нельзя загружать больше 5 файлов');
     }
     if (count($filecount) === 0) {
@@ -31,17 +31,7 @@ if (isset($_FILES['images'])) {
         // Проверим на ошибки
         if ($errorCode !== UPLOAD_ERR_OK || !is_uploaded_file($fileTmpName)) {
             // Массив с названиями ошибок
-            $errorMessages = [
-                UPLOAD_ERR_INI_SIZE   => 'Размер файла превысил значение upload_max_filesize в конфигурации PHP',
-                UPLOAD_ERR_FORM_SIZE  => 'Размер загружаемого файла превысил значение MAX_FILE_SIZE в HTML-форме',
-                UPLOAD_ERR_PARTIAL    => 'Загружаемый файл был получен только частично',
-                UPLOAD_ERR_NO_FILE    => 'Нужно выбрать хотя бы один файл',
-                UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная папка',
-                UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск',
-                UPLOAD_ERR_EXTENSION  => 'PHP-расширение остановило загрузку файла',
-            ];
-            // Зададим неизвестную ошибку
-            $unknownMessage = 'При загрузке файла произошла неизвестная ошибка.';
+            include $_SERVER['DOCUMENT_ROOT'] . '/include/errors.php';
             // Если в массиве нет кода ошибки, скажем, что ошибка неизвестна
             $outputMessage = isset($errorMessages[$errorCode]) ? $errorMessages[$errorCode] : $unknownMessage;
             // Выведем название ошибки
@@ -53,23 +43,21 @@ if (isset($_FILES['images'])) {
             $mime = (string) finfo_file($fi, $fileTmpName);
             // Проверим ключевое слово image (image/jpeg, image/png и т. д.),
             // а также прописываем запрет в .htaccess на выполнение скриптов php, js и т.д.
-            if (!in_array($mime, ["image/jpeg", "image/png", "image/jpeg"])) {
-                die('Можно загружать только jpg, jpeg или png изображения');
+            if (!in_array($mime, $types)) {
+                die('Можно загружать только jpg, jpeg или png файлы');
             }
             // Зададим ограничения для картинок
             $limitBytes  = 1024 * 1024 * 5;
             // Проверим нужные параметры
             if (filesize($fileTmpName) > $limitBytes) {
-                die('Размер изображения не должен превышать 5 Мбайт');
+                die('Размер файла не должен превышать 5 Мбайт');
             }
-            // Сгенерируем новое имя файла 
-            $name = getRandomFileName($fileTmpName);
-            // Переместим картинку с новым именем в папку /upload
-            if (!move_uploaded_file($fileTmpName, $path . $name . ".jpg")) {
-                die('При записи изображения на диск произошла ошибка');
+            // Переместим картинку в папку /upload
+            if (!move_uploaded_file($fileTmpName, $path . $fileName)) {
+                die('При записи файла на диск произошла ошибка');
             } else {
-                echo 'Файлы успешно загружены!';
+                echo 'Файл ' . $fileName . ' успешно добавлен<br/>';
             }
         }
-    };
-};
+    }
+}

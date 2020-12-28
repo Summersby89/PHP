@@ -10,27 +10,27 @@ include $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap" rel="stylesheet" />
 </head>
+
 <body>
   <header class="header">
     <div class="container">
-      <div class="header__body">
-        <h1 class="heading">Моя галерея</h1>
-        <div class="header-buttons">
-          <a href="/index.php" class="gallery-link">Загрузить ещё</a>
-          <button type="submit" form="form" name="delete" class="btn btn-danger">Удалить выбранные</button>
+      <form id="form">
+        <div class="header__body">
+          <h1 class="heading">Моя галерея</h1>
+          <div class="header-buttons">
+            <a href="/" class="gallery-link">Загрузить ещё</a>
+            <button type="submit" name="submit" id="submit" class="btn btn-danger" form="form">Удалить выбранные</button>
+          </div>
         </div>
-      </div>
     </div>
   </header>
   <div class="container">
-    <form method="post" id="form">
-      <h3 id="response"></h3>
-      <div class="row row-cols-1 row-cols-md-3">
-        <!-- карточка -->
-        <?php include $_SERVER['DOCUMENT_ROOT'] . '/templates/card.php'; ?>
-        <!-- карточка -->
-      </div>
-    </form>
+    <h4 id="response"></h4>
+    <div class="row row-cols-1 row-cols-md-3">
+      <!-- карточка -->
+      <?php include $_SERVER['DOCUMENT_ROOT'] . '/templates/card.php'; ?>
+      <!-- карточка -->
+    </div>
   </div>
   <script src="/js/delete.js"></script>
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php'; ?>

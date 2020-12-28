@@ -1,17 +1,20 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/include/functions.php';
-$images = glob('upload/*.{jpg,jpeg,png}', GLOB_BRACE);
-foreach ($images as $image) : ?>
+$images = glob('upload/*');
+?>
+<form id="form">
+<?php foreach ($images as $image) : ?>
+  
   <div class="col mb-4">
     <div class="card h-100">
-      <img src="<?= $image ?>" class="card-img-top" alt="фото" />
+      <img src="<?= rawurlencode($image); ?>" class="card-img-top" alt="фото" />
       <div class="card-body">
         <h5 class="card-title"><?= cutString(pathinfo($image, PATHINFO_FILENAME)); ?></h5>
         <p class="card-text">
           Размер файла: <?= getSize($image) ?>
         </p>
-        <input class="form-check-input" type="checkbox" name="checked[]" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
+          <label class="check-label">
+        <input class="check-input" type="checkbox" name="checked[]" value="<?= $image; ?>">
           Удалить
         </label>
       </div>
@@ -22,4 +25,6 @@ foreach ($images as $image) : ?>
       </div>
     </div>
   </div>
+  
 <?php endforeach; ?>
+</form>

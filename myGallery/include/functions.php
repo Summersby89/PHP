@@ -1,17 +1,5 @@
 <?php
 
-function getRandomFileName($path)
-{
-    $path = $path ? $path . '/' : '';
-
-    do {
-        $name = md5(microtime() . rand(0, 9999));
-        $file = $path . $name;
-    } while (file_exists($file));
-
-    return $name;
-}
-
 function cutString($line, $length = 12, $appends = '...')
 {
             return mb_strimwidth ($line, 0, $length + 3, $appends);

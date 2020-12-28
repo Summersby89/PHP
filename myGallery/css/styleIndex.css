@@ -1,23 +1,24 @@
-/* html,
-body {
-    box-sizing: border-box;
-    background: #e5e5e5;
-} */
-
 html,
 body {
+
     padding: 0;
     margin: 0;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     box-sizing: border-box;
     background: #e5e5e5;
 }
 
-.form-wrapper {
+.wrapper {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-wrapper {
+    position: absolute;
+    top: 20vh;
     display: flex;
     justify-content: center;
     padding: 40px 40px 10px;
@@ -35,8 +36,6 @@ body {
 }
 
 .gallery-link {
-    position: absolute;
-    top: 66%;
     text-decoration: none;
     padding: 6px;
     color: #fff;
@@ -50,4 +49,13 @@ body {
 .gallery-link:hover {
     color: #fff;
     opacity: 1;
+}
+
+.headings {
+    position: absolute;
+    top: 50vh;
+}
+
+.btn {
+    margin-right: 20px;
 }
