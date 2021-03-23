@@ -1,0 +1,33 @@
+body {
+    min-width: 320px;
+    font-size: 14px;
+    font-family: 'Playfair Display', serif;
+    color: white;
+}
+
+.container-custom {
+    background: url("/public/img/404bg.jpg") no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.error-message {
+    font-size: 20px;
+}
+
+.error-message a {
+    color: #FF8C00;
+}
+
+.error-message h1 {
+    font-size: 40px;
+}
+
+@media only screen and (max-width: 768px) {
+
+}
+
+
+@media only screen and (max-width: 640px) {
+
+}
